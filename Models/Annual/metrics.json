@@ -1,0 +1,484 @@
+{
+  "feature_columns": [
+    "height_m",
+    "footprint_area_m2",
+    "footprint_perimeter_m",
+    "footprint_compactness",
+    "estimated_volume_m3",
+    "usage_Bank",
+    "usage_Clinic",
+    "usage_CulturalFacility",
+    "usage_Domestic",
+    "usage_DrinkingEstablishment",
+    "usage_EatingEstablishment",
+    "usage_Hospital",
+    "usage_Hotel",
+    "usage_IndustrialFacility",
+    "usage_MultiResidential",
+    "usage_Non-Domestic",
+    "usage_Office",
+    "usage_Pharmacy",
+    "usage_ReligiousFacility",
+    "usage_RetailEstablishment",
+    "usage_School",
+    "usage_SingleResidential",
+    "usage_SportsFacility",
+    "usage_TransportFacility",
+    "usage_University",
+    "surrounding_num_neighbours",
+    "surrounding_density",
+    "surrounding_max_height",
+    "surrounding_mean_height",
+    "surrounding_nearest_taller_distance",
+    "surrounding_north_obstruction_angle",
+    "surrounding_south_obstruction_angle",
+    "surrounding_east_obstruction_angle",
+    "surrounding_west_obstruction_angle",
+    "surrounding_roof_obstruction_proxy"
+  ],
+  "target_columns": [
+    "annual_grid_consumption_kwh",
+    "annual_heating_consumption_kwh",
+    "roof_solar_suitable_area_m2",
+    "north_wall_solar_suitable_area_m2",
+    "south_wall_solar_suitable_area_m2",
+    "east_wall_solar_suitable_area_m2",
+    "west_wall_solar_suitable_area_m2"
+  ],
+  "dropped_input_columns": [
+    "centroid_lat",
+    "centroid_lon",
+    "micro_building",
+    "small_low_heat_building"
+  ],
+  "baseline_mlp_no_flags": {
+    "best_val_loss": 0.011003796011209488,
+    "best_val_mape_percent": 12.464408949017525,
+    "epochs": 996,
+    "device": "cuda",
+    "dropped_input_columns": [
+      "centroid_lat",
+      "centroid_lon",
+      "micro_building",
+      "small_low_heat_building"
+    ],
+    "splits": {
+      "train": {
+        "annual_grid_consumption_kwh": {
+          "mae": 672.990234375,
+          "rmse": 11278.0498046875,
+          "nmae": 0.13034871220588684,
+          "nmse": 0.10093876719474792,
+          "mape_percent": 6.186636924743652,
+          "r2": 0.8968797922134399
+        },
+        "annual_heating_consumption_kwh": {
+          "mae": 3499.389404296875,
+          "rmse": 18120.361328125,
+          "nmae": 0.11897804588079453,
+          "nmse": 0.06306902319192886,
+          "mape_percent": 12.688389778137207,
+          "r2": 0.9243628978729248
+        }
+      },
+      "val": {
+        "annual_grid_consumption_kwh": {
+          "mae": 618.400634765625,
+          "rmse": 6026.90380859375,
+          "nmae": 0.14020982384681702,
+          "nmse": 0.29904648661613464,
+          "mape_percent": 7.495547771453857,
+          "r2": 0.6439277529716492
+        },
+        "annual_heating_consumption_kwh": {
+          "mae": 3750.78662109375,
+          "rmse": 18504.947265625,
+          "nmae": 0.1323622614145279,
+          "nmse": 0.13637229800224304,
+          "mape_percent": 17.433273315429688,
+          "r2": 0.7995139956474304
+        }
+      },
+      "test": {
+        "annual_grid_consumption_kwh": {
+          "mae": 542.9738159179688,
+          "rmse": 3647.640869140625,
+          "nmae": 0.1269713193178177,
+          "nmse": 0.14558158814907074,
+          "mape_percent": 7.0919880867004395,
+          "r2": 0.8180022239685059
+        },
+        "annual_heating_consumption_kwh": {
+          "mae": 3839.021728515625,
+          "rmse": 12132.154296875,
+          "nmae": 0.13995341956615448,
+          "nmse": 0.06642099469900131,
+          "mape_percent": 17.96310806274414,
+          "r2": 0.8994306921958923
+        }
+      }
+    },
+    "target_columns": [
+      "annual_grid_consumption_kwh",
+      "annual_heating_consumption_kwh"
+    ]
+  },
+  "models": {
+    "random_forest": {
+      "splits": {
+        "train": {
+          "annual_grid_consumption_kwh": {
+            "mae": 778.8409268785207,
+            "rmse": 24088.398547412053,
+            "nmae": 0.15085049550614732,
+            "nmse": 0.4604747909856011,
+            "mape_percent": 6.1992936691851686,
+            "r2": 0.529573775429329
+          },
+          "annual_heating_consumption_kwh": {
+            "mae": 3136.9548573335537,
+            "rmse": 25974.428115725746,
+            "nmae": 0.10665539384946178,
+            "nmse": 0.12959087639459785,
+            "mape_percent": 10.096440306971811,
+            "r2": 0.8445849435188548
+          },
+          "roof_solar_suitable_area_m2": {
+            "mae": 8.544616876056134,
+            "rmse": 84.90443254921107,
+            "nmae": 0.12477795453218886,
+            "nmse": 0.13663528607283112,
+            "mape_percent": 18.807259677334905,
+            "r2": 0.8500356427379544
+          },
+          "north_wall_solar_suitable_area_m2": {
+            "mae": 0.0,
+            "rmse": 0.0,
+            "nmae": 0.0,
+            "nmse": 0.0,
+            "mape_percent": NaN,
+            "r2": 1.0
+          },
+          "south_wall_solar_suitable_area_m2": {
+            "mae": 10.577778251855014,
+            "rmse": 30.23132892879749,
+            "nmae": 0.4410959694572616,
+            "nmse": 0.24538479889029982,
+            "mape_percent": 40.887055402928816,
+            "r2": 0.709808837002913
+          },
+          "east_wall_solar_suitable_area_m2": {
+            "mae": 4.494731931056166,
+            "rmse": 24.203126149020104,
+            "nmae": 0.7840149103831127,
+            "nmse": 0.6647852298128338,
+            "mape_percent": 66.01734179097252,
+            "r2": 0.3094583300501348
+          },
+          "west_wall_solar_suitable_area_m2": {
+            "mae": 2.757298117407382,
+            "rmse": 16.847184625762416,
+            "nmae": 0.8344713704640279,
+            "nmse": 0.7458645159278486,
+            "mape_percent": 69.5488398288407,
+            "r2": 0.23210364468999434
+          }
+        },
+        "val": {
+          "annual_grid_consumption_kwh": {
+            "mae": 554.6730080193082,
+            "rmse": 5679.497427266739,
+            "nmae": 0.12576088305716282,
+            "nmse": 0.2655645042573174,
+            "mape_percent": 9.51943637731336,
+            "r2": 0.6837944665916604
+          },
+          "annual_heating_consumption_kwh": {
+            "mae": 3765.0211166846384,
+            "rmse": 17554.98985573948,
+            "nmae": 0.13286457781874048,
+            "nmse": 0.12273025416307148,
+            "mape_percent": 18.009242589184723,
+            "r2": 0.8195696705655724
+          },
+          "roof_solar_suitable_area_m2": {
+            "mae": 10.641176308126413,
+            "rmse": 32.02215329846792,
+            "nmae": 0.16763781834526614,
+            "nmse": 0.061553586407889355,
+            "mape_percent": 91.02108932669252,
+            "r2": 0.9188083310737807
+          },
+          "north_wall_solar_suitable_area_m2": {
+            "mae": 0.0,
+            "rmse": 0.0,
+            "nmae": 0.0,
+            "nmse": 0.0,
+            "mape_percent": NaN,
+            "r2": 1.0
+          },
+          "south_wall_solar_suitable_area_m2": {
+            "mae": 18.475808204482334,
+            "rmse": 44.17097899656218,
+            "nmae": 0.7415305217407501,
+            "nmse": 0.5542414549550134,
+            "mape_percent": 67.36079440104656,
+            "r2": 0.3270915903262056
+          },
+          "east_wall_solar_suitable_area_m2": {
+            "mae": 4.379854491807408,
+            "rmse": 15.945685403288792,
+            "nmae": 1.0430508117803254,
+            "nmse": 0.8629322605985031,
+            "mape_percent": 86.92205869263286,
+            "r2": 0.08214221538337296
+          },
+          "west_wall_solar_suitable_area_m2": {
+            "mae": 3.078166957488886,
+            "rmse": 13.824362400517241,
+            "nmae": 1.057575141146492,
+            "nmse": 0.9337322307379521,
+            "mape_percent": 89.1830694680414,
+            "r2": 0.025952142591010863
+          }
+        },
+        "test": {
+          "annual_grid_consumption_kwh": {
+            "mae": 450.18186981681197,
+            "rmse": 2467.8551225361557,
+            "nmae": 0.10527244970298807,
+            "nmse": 0.06663794545517765,
+            "mape_percent": 9.375867159230431,
+            "r2": 0.9166930339793911
+          },
+          "annual_heating_consumption_kwh": {
+            "mae": 3699.6298468089876,
+            "rmse": 9366.72526817091,
+            "nmae": 0.13487182396358052,
+            "nmse": 0.03959178351902468,
+            "mape_percent": 18.7631140287038,
+            "r2": 0.9400533254405112
+          },
+          "roof_solar_suitable_area_m2": {
+            "mae": 9.396437891262364,
+            "rmse": 22.70703533653015,
+            "nmae": 0.15351517779433696,
+            "nmse": 0.03443858705420839,
+            "mape_percent": 35.30839489288952,
+            "r2": 0.9540674851924624
+          },
+          "north_wall_solar_suitable_area_m2": {
+            "mae": 0.0,
+            "rmse": 0.0,
+            "nmae": 0.0,
+            "nmse": 0.0,
+            "mape_percent": NaN,
+            "r2": 1.0
+          },
+          "south_wall_solar_suitable_area_m2": {
+            "mae": 16.82357061456699,
+            "rmse": 36.630184363013406,
+            "nmae": 0.7445201701190093,
+            "nmse": 0.5335406298954529,
+            "mape_percent": 71.52386393923844,
+            "r2": 0.3305337155326663
+          },
+          "east_wall_solar_suitable_area_m2": {
+            "mae": 4.331092994013857,
+            "rmse": 19.42972332383827,
+            "nmae": 1.024469694458884,
+            "nmse": 0.7953474191982746,
+            "mape_percent": 84.67123568418063,
+            "r2": 0.17353207028474615
+          },
+          "west_wall_solar_suitable_area_m2": {
+            "mae": 3.583443908587885,
+            "rmse": 15.36539153928547,
+            "nmae": 1.0564774375220183,
+            "nmse": 0.9521144547598087,
+            "mape_percent": 89.64469058886291,
+            "r2": 0.0015618791192489878
+          }
+        }
+      }
+    },
+    "gradient_boosting": {
+      "splits": {
+        "train": {
+          "annual_grid_consumption_kwh": {
+            "mae": 277.96601038288725,
+            "rmse": 4492.211651729202,
+            "nmae": 0.05383809318827135,
+            "nmse": 0.016014390831318143,
+            "mape_percent": 3.2966898642628646,
+            "r2": 0.9836395182427875
+          },
+          "annual_heating_consumption_kwh": {
+            "mae": 3257.183004302046,
+            "rmse": 12981.552599017312,
+            "nmae": 0.11074310978733638,
+            "nmse": 0.032369479266122825,
+            "mape_percent": 14.172330693221745,
+            "r2": 0.9611801031957568
+          },
+          "roof_solar_suitable_area_m2": {
+            "mae": 9.562236400933259,
+            "rmse": 83.91892315166548,
+            "nmae": 0.1396383613412994,
+            "nmse": 0.13348176715007068,
+            "mape_percent": 34.03701109536225,
+            "r2": 0.853496794333256
+          },
+          "north_wall_solar_suitable_area_m2": {
+            "mae": 0.0,
+            "rmse": 0.0,
+            "nmae": 0.0,
+            "nmse": 0.0,
+            "mape_percent": NaN,
+            "r2": 1.0
+          },
+          "south_wall_solar_suitable_area_m2": {
+            "mae": 15.371985169514797,
+            "rmse": 36.392283949530125,
+            "nmae": 0.641015583744222,
+            "nmse": 0.3555918537211562,
+            "mape_percent": 64.29270795914861,
+            "r2": 0.5794783782439448
+          },
+          "east_wall_solar_suitable_area_m2": {
+            "mae": 5.227859063413649,
+            "rmse": 24.11975635816373,
+            "nmae": 0.911894083555431,
+            "nmse": 0.6602132955485289,
+            "mape_percent": 86.04364221200956,
+            "r2": 0.3142073993437816
+          },
+          "west_wall_solar_suitable_area_m2": {
+            "mae": 3.0899770227901175,
+            "rmse": 15.419182696560078,
+            "nmae": 0.9351536363193553,
+            "nmse": 0.6247812452512926,
+            "mape_percent": 86.16343410781518,
+            "r2": 0.3567635530996023
+          }
+        },
+        "val": {
+          "annual_grid_consumption_kwh": {
+            "mae": 320.34065452324273,
+            "rmse": 5306.92510191894,
+            "nmae": 0.07263076264664776,
+            "nmse": 0.23186549740966791,
+            "mape_percent": 4.21705070304836,
+            "r2": 0.7239196047963785
+          },
+          "annual_heating_consumption_kwh": {
+            "mae": 3617.1261994060415,
+            "rmse": 17111.413768397015,
+            "nmae": 0.1276454847149383,
+            "nmse": 0.11660636413678319,
+            "mape_percent": 17.479880336396402,
+            "r2": 0.8285726299613484
+          },
+          "roof_solar_suitable_area_m2": {
+            "mae": 9.033641576158233,
+            "rmse": 26.30039957914827,
+            "nmae": 0.14231321065357802,
+            "nmse": 0.0415218782807849,
+            "mape_percent": 76.43937707826223,
+            "r2": 0.9452309639242048
+          },
+          "north_wall_solar_suitable_area_m2": {
+            "mae": 0.0,
+            "rmse": 0.0,
+            "nmae": 0.0,
+            "nmse": 0.0,
+            "mape_percent": NaN,
+            "r2": 1.0
+          },
+          "south_wall_solar_suitable_area_m2": {
+            "mae": 18.572519956369486,
+            "rmse": 43.62022682272042,
+            "nmae": 0.7454120686285308,
+            "nmse": 0.5405063434252406,
+            "mape_percent": 69.16094149630435,
+            "r2": 0.3437674848728195
+          },
+          "east_wall_solar_suitable_area_m2": {
+            "mae": 4.535400659487343,
+            "rmse": 16.6135535973571,
+            "nmae": 1.0800937219435174,
+            "nmse": 0.9367320851696186,
+            "mape_percent": 91.51774015854382,
+            "r2": 0.0036450417593865136
+          },
+          "west_wall_solar_suitable_area_m2": {
+            "mae": 3.1316491871413326,
+            "rmse": 14.01579660994747,
+            "nmae": 1.0759501927127841,
+            "nmse": 0.959771176103204,
+            "mape_percent": 90.81852295763811,
+            "r2": -0.001211082697001542
+          }
+        },
+        "test": {
+          "annual_grid_consumption_kwh": {
+            "mae": 227.52726950229726,
+            "rmse": 1998.0462689880733,
+            "nmae": 0.05320594773060384,
+            "nmse": 0.043681079205206266,
+            "mape_percent": 4.294742809421779,
+            "r2": 0.945392401337774
+          },
+          "annual_heating_consumption_kwh": {
+            "mae": 3458.337407206079,
+            "rmse": 8499.40122906123,
+            "nmae": 0.12607538951327035,
+            "nmse": 0.03259914159252299,
+            "mape_percent": 17.475322104488008,
+            "r2": 0.9506410179519539
+          },
+          "roof_solar_suitable_area_m2": {
+            "mae": 8.330463079720532,
+            "rmse": 21.963058045879553,
+            "nmae": 0.13609971518905553,
+            "nmse": 0.032218852754375554,
+            "mape_percent": 33.960989079988956,
+            "r2": 0.9570280589940352
+          },
+          "north_wall_solar_suitable_area_m2": {
+            "mae": 0.0,
+            "rmse": 0.0,
+            "nmae": 0.0,
+            "nmse": 0.0,
+            "mape_percent": NaN,
+            "r2": 1.0
+          },
+          "south_wall_solar_suitable_area_m2": {
+            "mae": 17.22261488392792,
+            "rmse": 37.204887643388695,
+            "nmae": 0.7621797094710402,
+            "nmse": 0.5504137604549636,
+            "mape_percent": 72.85787117826592,
+            "r2": 0.3093619595499566
+          },
+          "east_wall_solar_suitable_area_m2": {
+            "mae": 4.423427305924377,
+            "rmse": 19.730052393439614,
+            "nmae": 1.0463103024628644,
+            "nmse": 0.8201251317250244,
+            "mape_percent": 88.87995437174264,
+            "r2": 0.14778485054056845
+          },
+          "west_wall_solar_suitable_area_m2": {
+            "mae": 3.6093567276016625,
+            "rmse": 15.460951740429527,
+            "nmae": 1.0641171018586189,
+            "nmse": 0.963994031336757,
+            "mape_percent": 91.6666210396072,
+            "r2": -0.010895680006181463
+          }
+        }
+      }
+    }
+  }
+}

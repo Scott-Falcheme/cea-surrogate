@@ -1,0 +1,62 @@
+{
+  "configuration": {
+    "annual_grid": "Gradient Boosting, seed 1",
+    "annual_heating": "Random Forest, seed 1",
+    "annual_shape": "Gradient Boosting, seed 42",
+    "daily_shape": "LSTM, seed 42",
+    "final_profile": "annual-energy-conserving normalisation"
+  },
+  "evaluation": {
+    "buildings": 202,
+    "selection": "intersection held out by annual seed 1 and both shape seed 42 splits",
+    "calendar": "2024 with 29 February removed (365 days)",
+    "annual_input": "current GUI-compatible 35-feature mapping",
+    "training_to_gui_feature_drift": {
+      "matched_buildings": 9503,
+      "buildings_with_any_changed_feature": 9503,
+      "changed_cells": 102800
+    }
+  },
+  "metrics": {
+    "annual": {
+      "heating": {
+        "mae_kwh": 3220.691456335338,
+        "rmse_kwh": 6569.701811464217,
+        "nmae_percent": 12.481577254865218,
+        "mape_percent": 21.433342177288402,
+        "r2": 0.9780830004437571,
+        "samples": 202
+      },
+      "grid": {
+        "mae_kwh": 270.7788873861333,
+        "rmse_kwh": 1365.413060602013,
+        "nmae_percent": 6.556416811597114,
+        "mape_percent": 6.6903350310506395,
+        "r2": 0.9794347629804067,
+        "samples": 202
+      }
+    },
+    "hourly": {
+      "heating": {
+        "mae_kwh": 0.5354325326663033,
+        "rmse_kwh": 1.8422738881542213,
+        "nmae_percent": 18.177293068830288,
+        "mape_percent": 39.39135860361444,
+        "r2": 0.9489383197643925,
+        "samples": 1769520
+      },
+      "grid": {
+        "mae_kwh": 0.046641949824205775,
+        "rmse_kwh": 0.35738033277603776,
+        "nmae_percent": 9.89310365401209,
+        "mape_percent": 8.929067840558622,
+        "r2": 0.9486462324344953,
+        "samples": 1769520
+      }
+    }
+  },
+  "annual_conservation_max_abs_kwh": {
+    "heating": 2.9103830456733704e-11,
+    "grid": 1.4551915228366852e-11
+  }
+}

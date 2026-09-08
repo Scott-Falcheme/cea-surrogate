@@ -1,0 +1,36 @@
+{
+  "deployed_at": "2026-08-16",
+  "selection_source": "MPhil_2026_ss3340_Thesis_draft/include-body.tex, Adopted surrogate model, lines 2184-2220",
+  "selection_note": "The later explicit adopted-model subsection takes precedence over the stale CNN statement at line 2320.",
+  "configuration": {
+    "annual_grid": "Gradient Boosting, seed 1",
+    "annual_heating": "Random Forest, seed 1",
+    "annual_shape": "Gradient Boosting, seed 42",
+    "daily_shape": "LSTM, seed 42",
+    "profile_normalisation": "sum of 8760 hourly predictions equals the predicted annual total"
+  },
+  "weights": [
+    {
+      "file": "Annual/grid_gradient_boosting_seed_001.joblib",
+      "bytes": 1563468,
+      "sha256": "0DB2637122AFBD507F6AD499A3ED5F92E888771C6D258BBC123B8AE033E61193"
+    },
+    {
+      "file": "Annual/heating_random_forest_seed_001.joblib",
+      "bytes": 316762786,
+      "sha256": "566A854B4D854568402668C1CDD7CECD7D6BC9C9FE08C232C7B6C6F354B06CEB"
+    },
+    {
+      "file": "Annual pattern/annual_shape_gradient_boosting_seed_42.joblib",
+      "bytes": 18638611,
+      "sha256": "1B8D7295B260819B9336F945F26685B4E71AA7E0F0D1AFB0DB7917FBC3A7D715"
+    },
+    {
+      "file": "Daily shape/lstm.pt",
+      "bytes": 4114234,
+      "sha256": "4C9DEFF8A93A8D5A6D86F8CBE59C4C2F154D1C94D3EB83F91F0BC6079199D3C2"
+    }
+  ],
+  "public_interface": "Scripts.demand_pipline.demand_surrogate(inputs) -> (annual_dataframe, hourly_dataframe)",
+  "gui_compatibility": "Unchanged 35 x building static input, building x 52 x 8760 hourly input, and four demand output columns."
+}

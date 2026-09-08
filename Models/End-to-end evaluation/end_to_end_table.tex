@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{End-to-end errors of the adopted demand-surrogate cascade on the common strictly held-out set using the current GUI-compatible 35-feature mapping. Annual rows evaluate building annual totals; hourly rows evaluate the final 8,760 hourly values after annual-energy-conserving normalisation. MAPE excludes zero targets.}
+\label{tab:adopted_demand_end_to_end}
+\begin{tabular}{llrrrrr}
+\toprule
+Level & Demand & MAE [kWh] & RMSE [kWh] & NMAE [\%] & MAPE [\%] & $R^2$ \\
+\midrule
+Annual total & Heating & 3220.691 & 6569.702 & 12.48 & 21.43 & 0.9781 \\
+ & Grid & 270.779 & 1365.413 & 6.56 & 6.69 & 0.9794 \\
+\midrule
+Hourly profile & Heating & 0.535 & 1.842 & 18.18 & 39.39 & 0.9489 \\
+ & Grid & 0.047 & 0.357 & 9.89 & 8.93 & 0.9486 \\
+\bottomrule
+\end{tabular}
+\end{table}
