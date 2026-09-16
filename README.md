@@ -1,5 +1,57 @@
 # Surrogate Bundle
 
+## Quick start
+
+This bundle predicts building energy demand and solar potential from building geometry, usage and local weather. The demand branch combines annual Grid (gradient boosting) and Heating (random forest) estimates with gradient-boosted annual shapes and LSTM daily shapes, normalised to preserve annual energy. The solar branch combines a geometry-aware radiation ROM with deterministic PV, PVT and solar-collector conversion.
+
+### Prepare the bundle
+
+- Keep `Scripts/`, `Models/` and `data/` together. Retain the selected weights listed in `Models/deployment_manifest.json`; older models are fallback artifacts.
+- Use a compatible Python environment with NumPy, pandas, SciPy, joblib, scikit-learn, PyTorch, pvlib, trimesh and an Embree backend supported by `trimesh.ray.ray_pyembree`. The demand loader identifies scikit-learn 1.8 / NumPy 2.x as its verified environment. There is currently no complete, pinned bundle environment file; `GUI/requirements_gui.txt` does not include all solar dependencies. The public entry point imports both branches even for demand-only calls.
+- Provide `data/building_geometry_full.csv` (including `uuid`, `building_height`, `geometry` in longitude/latitude WKT) and `data/building_usage.csv` (`building_iri`, `ontobuilt`, `usageshare`). Keep surrounding buildings in the geometry file, and ensure each demand building has a supported usage with a positive total share.
+- Keep the bundled `weather_<station UUID>.csv` files and the solar parameter tables `PHOTOVOLTAIC_PANELS.csv` and `SOLAR_COLLECTORS.csv`. Weather selection uses the built-in Kaiserslautern station list; using another region requires adapting that mapping and supplying compatible weather data.
+
+### Run a prediction
+
+Run Python from the bundle root. Supply **building IRIs**, not the time-series table UUIDs used in Adminer filenames. The example selects one mapped building; replace `building_iris` with your own list for batch prediction.
+
+```python
+import pandas as pd
+from Scripts.main import surrogate, save_static_results, save_timeseries_results
+
+mapping = pd.read_csv("data/target_mapping.csv", dtype=str)
+building_iris = [
+    "https://theworldavatar.io/kg/Building/" + mapping.loc[0, "building_uuid"]
+]
+
+result = surrogate(
+    IRI_lst=building_iris,
+    geometry_loc="data/building_geometry_full.csv",
+    usage_loc="data/building_usage.csv",
+    flag=4,
+)
+static = save_static_results(result, output=False)
+hourly = save_timeseries_results(result, output=False)
+print(static.shape)  # (1, 9)
+print(hourly.shape)  # (8760, 39), provided branch timestamps align
+```
+
+| `flag` | Returned predictions            | Export helpers            |
+| ------ | ------------------------------- | ------------------------- |
+| `1`    | Annual demand                   | `save_static_results`     |
+| `2`    | Hourly demand                   | `save_timeseries_results` |
+| `3`    | Hourly solar and suitable areas | Both                      |
+| `4`    | All outputs                     | Both                      |
+
+Set `output=True` to write `Outputs/building_scalar.csv` and one `Outputs/building_{timeseriesUUID}.csv` per building. Existing files with these names are overwritten. Time-series export requires a unique mapping for every requested building in `data/target_mapping.csv`; in-memory results do not require this mapping. Geometry indexing may create a cache in the working directory.
+
+For `flag=4`, static results have 9 data columns (4 demand + 5 suitable areas); hourly results have 39 per building (4 demand + 35 solar). Batch hourly results are a **two-dimensional** DataFrame with `(building_IRI, variable)` column levels, normally `(8760, 39 * N)`. CSV files also include an index column. Solar channels follow `PV, ET_Q, ET_E, FP_Q, FP_E, Th_ET, Th_FP`, each ordered `R, N, S, E, W` (roof, north, south, east, west).
+
+**Current scope:** Electricity is copied from Grid and Cooling is fixed to zero; these are not four independently trained demand targets. `flag=1` still computes hourly demand internally. `error_metrics` is currently an empty placeholder and the `save_error` interface described below is not implemented. Demand and solar timestamps must align before combining their hourly results. The thesis's approximately 0.629 s/building timing covers demand-shape inference plus radiation core computation, not the complete API call or all solar conversions.
+
+See the detailed interfaces below and [the selected demand cascade](Models/ADOPTED_DEMAND_CASCADE.md) for further details.
+
+
 [toc]
 
 ## Interfaces
