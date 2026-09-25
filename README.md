@@ -51,12 +51,9 @@ For `flag=4`, static results have 9 data columns (4 demand + 5 suitable areas); 
 
 See the detailed interfaces below and [the selected demand cascade](Models/ADOPTED_DEMAND_CASCADE.md) for further details.
 
-
-[toc]
+[![Surrogate Framework](Surrogate Framework.png)](https://github.com/Scott-Falcheme/cea-surrogate/blob/91d6c1d3df740ac53b10a1ac7861cab5782d9531/Surrogate%20Framework.png)
 
 ## Interfaces
-
-![Surrogate Framework](Surrogate Framework.png)
 
 ### main.py
 
